@@ -11,7 +11,7 @@ const validationSchema = z
     matrixSize: z.number().positive().lte(matrixConfig.maxSize),
     bombsAmount: z.number().nonnegative(),
   })
-  .refine((data) => data.bombsAmount <= data.matrixSize, {
+  .refine((data) => data.bombsAmount <= data.matrixSize * data.matrixSize, {
     message: `Number of bombs should be equal or less than matrix size`,
     path: ["bombsAmount"],
   });
