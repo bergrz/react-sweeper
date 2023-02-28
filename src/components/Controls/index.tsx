@@ -3,6 +3,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { config } from "../../config";
 import { TBoardState, TSetBoardState } from "../../types";
+import { Box } from "@mui/material";
 const matrixConfig = config.controls.matrix;
 
 const validationSchema = z
@@ -31,19 +32,27 @@ export const Controls = ({ setBoardState }: TSetBoardState) => {
   };
 
   return (
-    <form onChange={handleSubmit(onSubmit)}>
-      <input
-        type="number"
-        defaultValue="3"
-        {...register("matrixSize", { valueAsNumber: true })}
-      />
-      {errors.matrixSize && <span>{errors.matrixSize.message}</span>}
-      <input
-        type="number"
-        defaultValue="1"
-        {...register("bombsAmount", { valueAsNumber: true })}
-      />
-      {errors.bombsAmount && <span>{errors.bombsAmount.message}</span>}
-    </form>
+    <Box sx={{ mb: 2 }}>
+      <form onChange={handleSubmit(onSubmit)}>
+        <Box sx={{ mb: 2 }}>
+          <label htmlFor="matrixSize">matrix </label>
+          <input
+            type="number"
+            defaultValue="3"
+            {...register("matrixSize", { valueAsNumber: true })}
+          />
+          {errors.matrixSize && <span> {errors.matrixSize.message}</span>}
+        </Box>
+        <Box>
+          <label htmlFor="bombsAmount">bombs </label>
+          <input
+            type="number"
+            defaultValue="1"
+            {...register("bombsAmount", { valueAsNumber: true })}
+          />
+          {errors.bombsAmount && <span> {errors.bombsAmount.message}</span>}
+        </Box>
+      </form>
+    </Box>
   );
 };
