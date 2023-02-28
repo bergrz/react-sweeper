@@ -4,6 +4,7 @@ import { Controls } from "./components/Controls";
 import { Header } from "./components/Header";
 import { config } from "./config";
 import { TBoardState } from "./types";
+import "./index.css";
 
 export default function App() {
   const [boardState, setBoardState] = useState<TBoardState>({
