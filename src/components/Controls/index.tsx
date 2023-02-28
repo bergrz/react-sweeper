@@ -5,10 +5,15 @@ import { config } from "../../config";
 import { TBoardState, TSetBoardState } from "../../types";
 const matrixConfig = config.controls.matrix;
 
-const validationSchema = z.object({
-  matrixSize: z.number().positive().lte(matrixConfig.maxSize),
-  bombsAmount: z.number().nonnegative().lte(40),
-});
+const validationSchema = z
+  .object({
+    matrixSize: z.number().positive().lte(matrixConfig.maxSize),
+    bombsAmount: z.number().nonnegative(),
+  })
+  .refine((data) => data.bombsAmount <= data.matrixSize, {
+    message: `Number of bombs should be equal or less than matrix size`,
+    path: ["bombsAmount"],
+  });
 
 type ValidationSchema = z.infer<typeof validationSchema>;
 
